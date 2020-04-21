@@ -1,0 +1,55 @@
+{%extends 'toolbox/base.html'%}
+
+{%block content%}
+
+
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{object.owner.profile.image.url}}">
+            <div class="madia-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'user-tools' object.owner.username %}"> {{object.owner}} </a>
+                    {% if object.owner == user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tool-update' object.id %}">Update</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tool-delete' object.id %}">Delete</a>
+                        </div>
+                        
+                    {% endif %}
+                </div>
+                <h2 class="article-title"> {{object.title}} </h2>
+                <small class="text-muted"> Etat : {{object.get_state_of_use_display}}</small>
+                <p class="article-content"> {{object.description}} </p>
+            </div>
+
+        </article>
+        <h2>Photos</h2>
+        <article class="media content-section">
+           
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://picsum.photos/g/550/300" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/g/550/300"  alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/g/550/300"  alt="...">
+                </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </article>
+{%endblock content%}

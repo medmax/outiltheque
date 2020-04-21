@@ -1,0 +1,22 @@
+{%extends 'toolbox/base.html'%}
+
+{%block content%}
+
+
+    <h3 class="mb-3"> Les outils de {{view.kwargs.username}} </h3>
+
+    {%for tool in tools%}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{tool.owner.profile.image.url}}">
+            <div class="madia-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{%url 'user-tools' tool.owner.username %}"> {{tool.owner}} </a>
+                    <small class="text-muted">{{ tool.date_published|date:"d F Y" }}</small>
+                </div>
+                <h2><a class="article-title" href="{% url 'tool-detail' tool.id %}"> {{tool.title}} </a> </h2>
+                <small class="text-muted"> Etat : {{tool.get_state_of_use_display}}</small>
+                <p class="article-content"> {{tool.description}} </p>
+            </div>
+        </article>
+    {%endfor%}
+{%endblock content%}
