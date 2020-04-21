@@ -4,6 +4,7 @@ from .views import ToolListView, ToolDetailView, ToolCreateView, ToolUpdateView,
 
 urlpatterns = [
     path('', ToolListView.as_view(), name='toolbox-home'),
+    path('search/', views.tools_filter, name='tool-filter'),
     path('tool/<int:pk>/', ToolDetailView.as_view(), name='tool-detail'),
     path('tool/new/', ToolCreateView.as_view(), name='tool-create'),
     path('tool/<int:pk>/update/', ToolUpdateView.as_view(), name='tool-update'),

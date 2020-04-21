@@ -9,14 +9,32 @@ from django.views.generic import (ListView,
     UpdateView,
     DeleteView
 )
+from .filters import ToolFilter
 # Create your views here.
 
 
 def home(request):
+
+    tools = Tool.objects.all()
     context = {
-        'tools' : Tool.objects.all()
+        'tools' : tools
     }
     return render(request, 'toolbox/toolbox_home.html', context)
+
+
+def tools_filter(request):
+    tools = Tool.objects.all()
+    tools_count = tools.count()
+    tools_filter = ToolFilter(request.GET, queryset = tools)
+    tools = tools_filter.qs
+
+    context = {
+        'tools' : tools,
+        'tools_count': tools_count,
+        'tools_filter' :  tools_filter
+    }
+    return render(request, 'toolbox/toolbox_filter.html', context)
+
 
 
 class ToolListView(ListView):
@@ -24,6 +42,7 @@ class ToolListView(ListView):
     template_name = 'toolbox/toolbox_home.html'
     context_object_name = 'tools'
 
+    
 class ToolDetailView(DetailView):
     model = Tool
 
@@ -64,7 +83,9 @@ class UserToolListView(ListView):
     template_name = 'toolbox/user_tools.html'
     context_object_name = 'tools'
 
+    
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Tool.objects.filter(owner=user)
+

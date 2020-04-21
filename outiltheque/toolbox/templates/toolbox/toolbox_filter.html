@@ -1,0 +1,27 @@
+{%extends 'toolbox/base.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+
+
+    <h3>Les outils près de chez vous</h3>
+    <div class="content-section">
+        <form method="GET">
+            {{tools_filter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+    {%for tool in tools%}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{tool.owner.profile.image.url}}">
+            <div class="madia-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{%url 'user-tools' tool.owner.username %}"> {{tool.owner}} </a>
+                    <small class="text-muted">{{ tool.date_published|date:"d F Y" }}</small>
+                </div>
+                <h2><a class="article-title" href="{% url 'tool-detail' tool.id %}"> {{tool.title}} </a> </h2>
+                <small class="text-muted"> Etat : {{tool.get_state_of_use_display}}</small>
+                <p class="article-content"> {{tool.description}} </p>
+            </div>
+        </article>
+    {%endfor%}
+{%endblock content%}
