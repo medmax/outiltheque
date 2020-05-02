@@ -2,7 +2,7 @@
 
 {%block content%}
 
-
+        <h2>Outil</h2>
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{object.owner.profile.image.url}}">
             <div class="madia-body">
@@ -24,7 +24,6 @@
         </article>
         <h2>Photos</h2>
         <article class="media content-section">
-           
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -52,4 +51,5 @@
                 </a>
             </div>
         </article>
+        <a class="btn btn-outline-info" href="{% url 'loan-create' object.id %}"> Demande de pret </a>
 {%endblock content%}

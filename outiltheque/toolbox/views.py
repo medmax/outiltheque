@@ -46,6 +46,7 @@ class ToolListView(ListView):
 class ToolDetailView(DetailView):
     model = Tool
 
+
 class ToolCreateView(LoginRequiredMixin, CreateView):
     model = Tool
     fields = ['title', 'description', 'state_of_use']

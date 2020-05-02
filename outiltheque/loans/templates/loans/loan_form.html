@@ -1,0 +1,18 @@
+{%extends 'toolbox/base.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+<div class="content-section">
+    faire une demande de pret pour {{tool.title}}
+    <form method="POST">
+        {%csrf_token%}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Pret</legend>
+            {{ r_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit"> Demande de pret </button>
+        </div>
+    </form>
+
+</div>
+{%endblock content%}

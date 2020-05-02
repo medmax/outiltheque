@@ -1,0 +1,12 @@
+{%extends 'toolbox/base.html'%}
+
+{%block content%}
+    <h2>Mes demandes d'emprunts</h2>
+    {% for loan in loans %}
+        <br>
+        <b>{{loan.tool.title}} </b> - de : {{loan.tool.owner.username}}
+        <br>
+        
+    {% endfor %}
+
+{%endblock content%}
