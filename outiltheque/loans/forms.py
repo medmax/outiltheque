@@ -1,5 +1,7 @@
 from django import forms
 from .models import Loan, Tool, User
+from datetime import datetime
+from django.db import models
 
 class DateInput (forms.DateInput):
     input_type = 'date'
@@ -13,3 +15,18 @@ class LoanRequestForm(forms.ModelForm):
     date_begin = forms.DateField(widget=DateInput)
     date_end = forms.DateField(widget=DateInput)
 
+
+    def clean(self):
+
+        cleaned_data = super().clean()
+        begin_date = cleaned_data.get("date_begin")
+        end_date = cleaned_data.get("date_end")
+        # today = datetime.today
+        if end_date < begin_date:
+            raise forms.ValidationError (
+                "la date de fin du pret ne peut pas etre inférieur à la date de début"
+            )
+        # if begin_date < today:
+        #                 raise forms.ValidationError (
+        #         "la date de début ne peut pas etre inférieur a aujourd'hui"
+        #     )
