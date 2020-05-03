@@ -38,13 +38,7 @@ def loans_requestCreation(request, tool_id):
   
    
     return render(request, 'loans/loan_form.html', context)
-# class LoanCreateView(LoginRequiredMixin, CreateView):
-#     model = Loan
-#     fields = ['request_message']
-#     tool = Tool.objects.get(id = tool_id)
-#     def form_valid(self, form):
-#         form.instance.borrower = self.request.user
-#         return super().form_valid(form)
+
 
 class LoanDetailView(DetailView):
     model = Loan

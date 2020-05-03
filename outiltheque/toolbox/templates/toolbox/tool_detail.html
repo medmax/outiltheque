@@ -51,5 +51,8 @@
                 </a>
             </div>
         </article>
+
+        {% if object.owner != user %}
         <a class="btn btn-outline-info" href="{% url 'loan-create' object.id %}"> Demande de pret </a>
-{%endblock content%}
+        {% endif %}
+    {%endblock content%}

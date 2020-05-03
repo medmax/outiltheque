@@ -9,5 +9,6 @@ class Loan (models.Model):
     request_message = models.TextField()
     borrower = models.ForeignKey(User, on_delete=models.CASCADE)
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    date_published = models.DateTimeField(default=timezone.now)
     date_begin = models.DateField(default=timezone.now)
     date_end = models.DateField(default=timezone.now)

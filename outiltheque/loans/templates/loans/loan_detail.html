@@ -7,15 +7,16 @@
         <img class="rounded-circle article-img" src="{{object.borrower.profile.image.url}}">
         <div class="madia-body">
             <div class="article-metadata">
-                
+              
                     <div>
                         <a class="btn btn-success btn-sm mt-1 mb-1" href="#">Accepter</a>
                         <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Refuser</a>
                     </div>
-                    
+                   
             
             </div>
             <h2 class="article-title"> {{object.tool.title}} </h2>
+            <small class="text-muted"> le : {{ object.date_published|date:"d F Y - H:i" }}</small>
             <p class="article-content"> {{object.request_message}} </p>
 
             <p>

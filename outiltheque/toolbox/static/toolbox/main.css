@@ -4,11 +4,9 @@ body {
     margin-top: 5rem;
   }
   
-
-  table, td{
-    border:1px solid black;
-  }
-
+table, th,tr, td {
+  border: solid 2px black;
+}
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
