@@ -13,7 +13,7 @@ from .forms import LoanRequestForm
 
 @login_required
 def loans_home(request):
-    loans = Loan.objects.filter(borrower = request.user)
+    loans = Loan.objects.filter(tool__owner = request.user)
     context = {'loans' : loans}
     return render(request, 'loans/loans_home.html', context)
 
