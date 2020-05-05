@@ -42,7 +42,7 @@ def loans_requestCreation(request, tool_id):
           loanRequest.borrower = borrower
           loanRequest.save()
           messages.success(request, f'Votre demande de pret à été envoyée')
-          return redirect('/loans/')
+          return redirect('/loans/borrow')
     else:
         r_form = LoanRequestForm()
     
@@ -52,16 +52,28 @@ def loans_requestCreation(request, tool_id):
    
     return render(request, 'loans/loan_form.html', context)
 
-
+@login_required
 def loan_accept(request, pk):
     Loan.objects.filter(pk = pk).update(status='Accepted')
     messages.success(request, f'Le pret à été accepté, un message a été envoyé au locataire pour le prevenir')
     return redirect('/loans/')
+    
+@login_required
+def loan_complete(request, pk):
+    Loan.objects.filter(pk = pk).update(status='Completed')
+    messages.success(request, f'Le pret est finalisé merci à toi')
+    return redirect('/loans/')
 
+@login_required
 def borrow_retrieve(request,pk):
-    Loan.objects.filter(pk = pk).update(status='ToolRetrieved')
+    Loan.objects.filter(pk = pk).update(status='InProgress')
     messages.success(request, f'tu as confirmé que tu as recupéré l\'outil')
-    return redirect('/borrow/')
+    return redirect('/loans/borrow')
+@login_required
+def borrow_returned(request,pk):
+    Loan.objects.filter(pk = pk).update(status='ToolReturned')
+    messages.success(request, f'tu as confirmé que tu as rendu l\'outil à son proprietaire, le proprietaire doit confirmer pour terminer la location')
+    return redirect('/loans/borrow')
 
 
 class LoanDetailView(DetailView):

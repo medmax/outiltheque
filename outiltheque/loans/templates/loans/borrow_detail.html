@@ -9,9 +9,14 @@
               
                 {% if borrow.status == 'Accepted' %}
                     <div>
-                        <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'borrow-retrieve' borrow.id %}">Recuperé</a>
+                        <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'borrow-retrieve' borrow.id %}"> Outil récupéré</a>
                     </div>
                 {% endif %}
+                {% if borrow.status == 'InProgress' %}
+                <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'borrow-returned' borrow.id %}"> Outil rendu</a>
+                </div>
+            {% endif %}
             
             </div>
             <h2 class="article-title"> {{borrow.tool.title}} </h2>

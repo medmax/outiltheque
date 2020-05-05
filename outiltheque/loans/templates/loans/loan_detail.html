@@ -14,6 +14,12 @@
                         <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Refuser</a>
                     </div>
                 {% endif %}
+
+                {% if object.status == 'ToolReturned' %}
+                <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'loan-complete' object.id %}">Terminer la location</a>
+                </div>
+            {% endif %}
             
             </div>
             <h2 class="article-title"> {{object.tool.title}} </h2>

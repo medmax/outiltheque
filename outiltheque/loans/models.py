@@ -16,7 +16,6 @@ class Loan (models.Model):
     ('New', 'demandé'),
     ('Accepted', 'accepté'),
     ('Rejected', 'refusé'),
-    ('ToolRetrived', 'outil récupéré'),
     ('InProgress', 'prêt en cours'),
     ('ToolReturned', 'outil rendu'),
     ('Completed', 'terminé'),
