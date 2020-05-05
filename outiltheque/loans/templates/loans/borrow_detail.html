@@ -1,0 +1,30 @@
+{%extends 'toolbox/base.html'%}
+
+{%block content%}
+
+    <h2>Recapitulatif de ma demande</h2>
+    <article class="media content-section">
+        <div class="madia-body">
+            <div class="article-metadata">
+              
+                {% if borrow.status == 'Accepted' %}
+                    <div>
+                        <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'borrow-retrieve' borrow.id %}">Recuperé</a>
+                    </div>
+                {% endif %}
+            
+            </div>
+            <h2 class="article-title"> {{borrow.tool.title}} </h2>
+            <small class="text-muted"> le : {{ borrow.date_published|date:"d F Y - H:i" }}</small>
+            <p class="article-content"> {{borrow.request_message}} </p>
+
+            <p>
+                de : {{borrow.date_begin}} <br>
+                a : {{borrow.date_end}}
+            </p>
+            <p>
+                statut : {{borrow.get_status_display }} 
+            </p>
+        </div>
+    </article>
+{%endblock content%}

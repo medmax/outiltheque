@@ -12,3 +12,13 @@ class Loan (models.Model):
     date_published = models.DateTimeField(default=timezone.now)
     date_begin = models.DateField(default=timezone.now)
     date_end = models.DateField(default=timezone.now)
+    STATUS = [
+    ('New', 'demandé'),
+    ('Accepted', 'accepté'),
+    ('Rejected', 'refusé'),
+    ('ToolRetrived', 'outil récupéré'),
+    ('InProgress', 'prêt en cours'),
+    ('ToolReturned', 'outil rendu'),
+    ('Completed', 'terminé'),
+    ]
+    status = models.CharField(max_length=100, choices=STATUS, default='New')

@@ -1,14 +1,14 @@
 {%extends 'toolbox/base.html'%}
 
 {%block content%}
-    <h2>Ils veulent m'emprunter</h2>
+    <h2>J'ai demandé:</h2>
 
 
     <!-- <article class="media content-section"></article> -->
         <table>
             <tr>
                 <th> id </th>
-                <th> Demandeur </th>
+                <th>Proprietaire</th>
                 <th> outil </th>
                 <th> du </th>
                 <th> au </th>
@@ -19,12 +19,12 @@
 
             <tr>
                 <td> {{loan.id}}</td>
-                <td> {{loan.borrower}}</td>
+                <td> {{loan.tool.owner}}</td>
                 <td> {{loan.tool.title}} </td>
                 <td> {{loan.date_begin }} </td>
                 <td> {{loan.date_end }} </td>
                 <td> {{loan.get_status_display }} </td>
-                <td> <a href="{% url 'loan-detail' loan.id %}"> Consulter </a> </td>
+                <td> <a href="{% url 'borrow-detail' loan.id %}"> Consulter </a> </td>
             </tr>
 
         {% endfor %}

@@ -2,17 +2,18 @@
 
 {%block content%}
 
-    <h2>Recapitulatif de la demande</h2>
+    <h2>Recapitulatif de sa demande</h2>
     <article class="media content-section">
         <img class="rounded-circle article-img" src="{{object.borrower.profile.image.url}}">
         <div class="madia-body">
             <div class="article-metadata">
               
+                {% if object.status == 'New' %}
                     <div>
-                        <a class="btn btn-success btn-sm mt-1 mb-1" href="#">Accepter</a>
+                        <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'loan-accept' object.id %}">Accepter</a>
                         <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Refuser</a>
                     </div>
-                   
+                {% endif %}
             
             </div>
             <h2 class="article-title"> {{object.tool.title}} </h2>
@@ -22,6 +23,9 @@
             <p>
                 de : {{object.date_begin}} <br>
                 a : {{object.date_end}}
+            </p>
+            <p>
+                statut : {{loan.get_status_display }} 
             </p>
         </div>
     </article>

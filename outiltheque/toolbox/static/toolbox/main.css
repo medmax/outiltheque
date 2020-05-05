@@ -111,7 +111,7 @@ table, th,tr, td {
   }
 
   .card-image {
-    height: 150px;/*1*/
+    height: 100px;/*1*/
     position: relative;/*2*/
     overflow: hidden;/*3*/
   }
