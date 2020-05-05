@@ -17,7 +17,6 @@ def lend_home(request):
     context = {'loans' : loans}
     return render(request, 'loans/loans_home.html', context)
 
-
 @login_required
 def borrow_detail(request, pk):
     borrow = Loan.objects.get(id = pk)
@@ -57,7 +56,7 @@ def loan_accept(request, pk):
     Loan.objects.filter(pk = pk).update(status='Accepted')
     messages.success(request, f'Le pret à été accepté, un message a été envoyé au locataire pour le prevenir')
     return redirect('/loans/')
-    
+
 @login_required
 def loan_complete(request, pk):
     Loan.objects.filter(pk = pk).update(status='Completed')
@@ -69,12 +68,12 @@ def borrow_retrieve(request,pk):
     Loan.objects.filter(pk = pk).update(status='InProgress')
     messages.success(request, f'tu as confirmé que tu as recupéré l\'outil')
     return redirect('/loans/borrow')
+
 @login_required
 def borrow_returned(request,pk):
     Loan.objects.filter(pk = pk).update(status='ToolReturned')
     messages.success(request, f'tu as confirmé que tu as rendu l\'outil à son proprietaire, le proprietaire doit confirmer pour terminer la location')
     return redirect('/loans/borrow')
-
 
 class LoanDetailView(DetailView):
     model = Loan

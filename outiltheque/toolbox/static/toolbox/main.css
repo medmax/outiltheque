@@ -4,9 +4,6 @@ body {
     margin-top: 5rem;
   }
   
-table, th,tr, td {
-  border: solid 2px black;
-}
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
@@ -129,3 +126,26 @@ table, th,tr, td {
   }
 
  
+ /* DEBUT - Tableaux de pret */
+  .loan-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: auto;
+    width: 100%;
+    font: normal 13px Arial, sans-serif;
+}
+.loan-table thead th {
+    background-color: #5f788a;
+    border: solid 1px #5f788a;
+    color: #cbd5db;
+    padding: 5px;
+    text-align: left;
+
+}
+.loan-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 5px;
+}
+/* FIN - Tableaux de pret */

@@ -5,8 +5,8 @@
 
 
     <!-- <article class="media content-section"></article> -->
-        <table>
-            <tr>
+        <table class="loan-table">
+            <thead>
                 <th> id </th>
                 <th> Demandeur </th>
                 <th> outil </th>
@@ -14,20 +14,22 @@
                 <th> au </th>
                 <th> statut </th>
                 <th> action </th>
-            </tr>
-        {% for loan in loans %}
+            </thead>
+            <tbody>
+                {% for loan in loans %}
 
-            <tr>
-                <td> {{loan.id}}</td>
-                <td> {{loan.borrower}}</td>
-                <td> {{loan.tool.title}} </td>
-                <td> {{loan.date_begin }} </td>
-                <td> {{loan.date_end }} </td>
-                <td> {{loan.get_status_display }} </td>
-                <td> <a href="{% url 'loan-detail' loan.id %}"> Consulter </a> </td>
-            </tr>
+                    <tr>
+                        <td> {{loan.id}}</td>
+                        <td> {{loan.borrower}}</td>
+                        <td> {{loan.tool.title}} </td>
+                        <td> {{loan.date_begin }} </td>
+                        <td> {{loan.date_end }} </td>
+                        <td> {{loan.get_status_display }} </td>
+                        <td> <a href="{% url 'loan-detail' loan.id %}"> Consulter </a> </td>
+                    </tr>
 
-        {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     <!-- </article> -->
 {%endblock content%}
