@@ -49,7 +49,7 @@ class ToolDetailView(DetailView):
 
 class ToolCreateView(LoginRequiredMixin, CreateView):
     model = Tool
-    fields = ['title', 'description', 'state_of_use']
+    fields = ['title', 'description', 'state_of_use', 'image']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -57,7 +57,7 @@ class ToolCreateView(LoginRequiredMixin, CreateView):
 
 class ToolUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Tool
-    fields = ['title', 'description', 'state_of_use']
+    fields = ['title', 'description', 'state_of_use', 'image']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
