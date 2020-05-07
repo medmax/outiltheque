@@ -53,7 +53,8 @@ def loans_requestCreation(request, tool_id):
 
 @login_required
 def loan_accept(request, pk):
-    Loan.objects.filter(pk = pk).update(status='Accepted')
+    loan = Loan.objects.get(pk = pk)
+    loan.accept()
     messages.success(request, f'Le pret à été accepté, un message a été envoyé au locataire pour le prevenir')
     return redirect('/loans/')
 

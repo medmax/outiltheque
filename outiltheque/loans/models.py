@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from toolbox.models import Tool
 from django.utils import timezone
+from django.contrib import messages
 # Create your models here.
 
 class Loan (models.Model):
@@ -22,3 +23,7 @@ class Loan (models.Model):
     ]
     status = models.CharField(max_length=100, choices=STATUS, default='New')
 
+    def accept(self):
+        self.status = 'Accepted'
+        self.save()
+        
