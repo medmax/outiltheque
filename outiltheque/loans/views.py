@@ -60,19 +60,22 @@ def loan_accept(request, pk):
 
 @login_required
 def loan_complete(request, pk):
-    Loan.objects.filter(pk = pk).update(status='Completed')
+    loan = Loan.objects.get(pk = pk)
+    loan.complete()
     messages.success(request, f'Le pret est finalisé merci à toi')
     return redirect('/loans/')
 
 @login_required
 def borrow_retrieve(request,pk):
-    Loan.objects.filter(pk = pk).update(status='InProgress')
+    borrow = Loan.objects.get(pk = pk)
+    borrow.retrieve()
     messages.success(request, f'tu as confirmé que tu as recupéré l\'outil')
     return redirect('/loans/borrow')
 
 @login_required
 def borrow_returned(request,pk):
-    Loan.objects.filter(pk = pk).update(status='ToolReturned')
+    borrow = Loan.objects.get(pk = pk)
+    borrow.return_back()
     messages.success(request, f'tu as confirmé que tu as rendu l\'outil à son proprietaire, le proprietaire doit confirmer pour terminer la location')
     return redirect('/loans/borrow')
 

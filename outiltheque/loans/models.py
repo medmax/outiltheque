@@ -26,4 +26,16 @@ class Loan (models.Model):
     def accept(self):
         self.status = 'Accepted'
         self.save()
-        
+
+    def retrieve(self):
+        self.status = 'InProgress'
+        self.save()
+    
+    def return_back(self):
+        self.status = 'ToolReturned'
+        self.save()
+    
+    def complete(self):
+        self.status = 'Completed'
+        self.save()
+
