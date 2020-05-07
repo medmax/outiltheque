@@ -21,3 +21,4 @@ class Loan (models.Model):
     ('Completed', 'terminé'),
     ]
     status = models.CharField(max_length=100, choices=STATUS, default='New')
+

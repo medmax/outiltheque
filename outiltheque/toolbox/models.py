@@ -32,3 +32,10 @@ class Tool(models.Model):
     def get_absolute_url(self):
         return reverse('tool-detail', kwargs={'pk': self.pk})
 
+    def short_desc(self):
+            if len(self.description) > 50:
+                return self.description[:50] + "..."
+            else:
+                return self.description
+
+
