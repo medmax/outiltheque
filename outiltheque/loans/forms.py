@@ -21,12 +21,8 @@ class LoanRequestForm(forms.ModelForm):
         cleaned_data = super().clean()
         begin_date = cleaned_data.get("date_begin")
         end_date = cleaned_data.get("date_end")
-        # today = datetime.today
+     
         if end_date < begin_date:
             raise forms.ValidationError (
                 "la date de fin du pret ne peut pas etre inférieur à la date de début"
             )
-        # if begin_date < today:
-        #                 raise forms.ValidationError (
-        #         "la date de début ne peut pas etre inférieur a aujourd'hui"
-        #     )

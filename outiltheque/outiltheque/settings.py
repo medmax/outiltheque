@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms', 
     'toolbox.apps.ToolboxConfig',
     'loans.apps.LoansConfig',
+    'discussion.apps.DiscussionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from toolbox.models import Tool
+from discussion.models import Message
 from django.utils import timezone
 from django.contrib import messages
 # Create your models here.
@@ -13,6 +14,7 @@ class Loan (models.Model):
     date_published = models.DateTimeField(default=timezone.now)
     date_begin = models.DateField(default=timezone.now)
     date_end = models.DateField(default=timezone.now)
+    messages = models.ManyToManyField(Message)
     STATUS = [
     ('New', 'demandé'),
     ('Accepted', 'accepté'),

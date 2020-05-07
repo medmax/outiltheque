@@ -2,11 +2,12 @@
 
 {%block content%}
 
-    <h2>Recapitulatif de ma demande</h2>
+
     <article class="media content-section">
         <div class="madia-body">
             <div class="article-metadata">
-              
+                <h2>Recapitulatif de la demande</h2>
+            </div>
                 {% if borrow.status == 'Accepted' %}
                     <div>
                         <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'borrow-retrieve' borrow.id %}"> Outil récupéré</a>
@@ -16,20 +17,47 @@
                 <div>
                     <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'borrow-returned' borrow.id %}"> Outil rendu</a>
                 </div>
-            {% endif %}
-            
-            </div>
-            <h2 class="article-title"> {{borrow.tool.title}} </h2>
-            <small class="text-muted"> le : {{ borrow.date_published|date:"d F Y - H:i" }}</small>
-            <p class="article-content"> {{borrow.request_message}} </p>
-
-            <p>
-                de : {{borrow.date_begin}} <br>
-                a : {{borrow.date_end}}
-            </p>
-            <p>
-                statut : {{borrow.get_status_display }} 
-            </p>
+                {% endif %}
+                <p>
+                    statut : {{borrow.get_status_display }} 
+                </p>
+                <h3 class="article-title"> {{borrow.tool.title}} </h3>
+                <small class="text-muted"> le : {{ borrow.date_published|date:"d F Y - H:i" }}</small>
+                 <p class="article-content"> {{borrow.request_message}} </p>
+                <p>
+                    du : {{borrow.date_begin}} <br>
+                    au : {{borrow.date_end}}
+                </p>
         </div>
     </article>
+
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <h2 class="article-title">  Discussion </h2>
+            </div>
+            
+            <div class="discussion">
+                <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
+                <p>ca te vas si je passe ce soir vers 18h? c'est quoi ton numero?</p>
+                <span class="time-right">11:00</span>
+              </div>
+              
+              <div class="discussion darker">
+                <img src="{{borrow.borrower.profile.image.url}}" alt="Avatar" class="right">
+                <p>Ok ca me vas. appel moi quand tu es en bas au 06 XX YY XX YY</p>
+                <span class="time-left">11:01</span>
+              </div>
+              <div class="discussion">
+                <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
+                <p>ca marche à toute. merci !</p>
+                <span class="time-right">11:13</span>
+              </div>
+              <form> 
+                  <input type="text">
+                  <button class="btn btn-outline-success" type="submit"> Envoyer </button>
+              </form>
+        </div>
+    </article>
+
 {%endblock content%}
