@@ -36,23 +36,33 @@
             <div class="article-metadata">
                 <h2 class="article-title">  Discussion </h2>
             </div>
-            
-            <div class="discussion">
-                <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
-                <p>ca te vas si je passe ce soir vers 18h? c'est quoi ton numero?</p>
-                <span class="time-right">11:00</span>
+            {% for msg in borrow.messages.all %}
+                {% if msg.receiver == borrow.tool.owner %}
+                    <div class="discussion">
+                {%else%}
+                    <div class="discussion darker">
+                {% endif %}
+                
+                {% if msg.receiver == borrow.tool.owner %}
+                    <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
+                {% endif %}
+
+                {% if msg.sender == borrow.tool.owner %}
+                    <img src="{{borrow.borrower.profile.image.url}}" alt="Avatar" class="right">
+                {% endif %}
+               
+                <p>{{msg.body}}</p>
+
+                {% if msg.receiver == borrow.tool.owner %}
+                    <span class="time-right">{{msg.date_published}}</span>
+                {% endif %}
+
+                {% if msg.sender == borrow.tool.owner %}
+                    <span class="time-left">{{msg.date_published}}</span>
+                {% endif %}
+           
               </div>
-              
-              <div class="discussion darker">
-                <img src="{{borrow.borrower.profile.image.url}}" alt="Avatar" class="right">
-                <p>Ok ca me vas. appel moi quand tu es en bas au 06 XX YY XX YY</p>
-                <span class="time-left">11:01</span>
-              </div>
-              <div class="discussion">
-                <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
-                <p>ca marche à toute. merci !</p>
-                <span class="time-right">11:13</span>
-              </div>
+            {% endfor %}
               <form> 
                   <input type="text">
                   <button class="btn btn-outline-success" type="submit"> Envoyer </button>
