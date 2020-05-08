@@ -35,4 +35,46 @@
             </p>
         </div>
     </article>
+
+
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <h2 class="article-title">  Discussion </h2>
+            </div>
+            {% for msg in object.messages.all %}
+                {% if msg.receiver == object.tool.owner %}
+                    <div class="discussion">
+                {%else%}
+                    <div class="discussion darker">
+                {% endif %}
+                
+                {% if msg.receiver == object.tool.owner %}
+                    <img src="{{object.borrower.profile.image.url}}" alt="Avatar" >
+                {% endif %}
+
+                {% if msg.sender == object.tool.owner %}
+                    <img src="{{object.tool.owner.profile.image.url}}" alt="Avatar" class="right">
+                  
+                {% endif %}
+               
+                <p>{{msg.body}}</p>
+
+                {% if msg.receiver == object.tool.owner %}
+                    <span class="time-left">{{msg.date_published}}</span>
+                {% endif %}
+
+                {% if msg.sender == object.tool.owner %}
+                    <span class="time-right">{{msg.date_published}}</span>
+                    
+                {% endif %}
+           
+              </div>
+            {% endfor %}
+              <form> 
+                  <input type="text">
+                  <button class="btn btn-outline-success" type="submit"> Envoyer </button>
+              </form>
+        </div>
+    </article>
 {%endblock content%}

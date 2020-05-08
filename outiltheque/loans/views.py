@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Loan, Tool
+from discussion.models import Message
+from users.models import User
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (ListView,
@@ -9,6 +11,7 @@ from django.views.generic import (ListView,
 )
 from django.contrib.auth.decorators import login_required
 from .forms import LoanRequestForm
+from discussion.forms import MessageForm
 # Create your views here.
 
 @login_required
@@ -20,7 +23,24 @@ def lend_home(request):
 @login_required
 def borrow_detail(request, pk):
     borrow = Loan.objects.get(id = pk)
-    context = {'borrow' : borrow} 
+    msg_from = MessageForm() 
+    if (request.method == "POST"):
+            msg_form = MessageForm(request.POST)
+            if msg_form.is_valid() :
+                # ----Création du msg et ajout au pret a mettre dans le model
+                msg = msg_form.save(commit=False)
+                sender = borrow.borrower
+                receiver = borrow.tool.owner
+                msg.sender = sender
+                msg.receiver = receiver
+                msg.save()
+                borrow.messages.add(msg)
+                messages.success(request, f'Votre message à été envoyée')
+            return redirect('/loans/borrow')
+    else:
+        r_form = LoanRequestForm()
+    
+    context = {'borrow' : borrow, 'msg_form': msg_from} 
     return render(request, 'loans/borrow_detail.html', context)
 
 @login_required

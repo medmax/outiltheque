@@ -1,5 +1,5 @@
 {%extends 'toolbox/base.html'%}
-
+{% load crispy_forms_tags %}
 {%block content%}
 
 
@@ -38,17 +38,18 @@
             </div>
             {% for msg in borrow.messages.all %}
                 {% if msg.receiver == borrow.tool.owner %}
-                    <div class="discussion">
-                {%else%}
                     <div class="discussion darker">
+                {%else%}
+                    <div class="discussion">
                 {% endif %}
                 
                 {% if msg.receiver == borrow.tool.owner %}
-                    <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
+                    <img src="{{borrow.borrower.profile.image.url}}" alt="Avatar" class="right">
                 {% endif %}
 
                 {% if msg.sender == borrow.tool.owner %}
-                    <img src="{{borrow.borrower.profile.image.url}}" alt="Avatar" class="right">
+                    <img src="{{borrow.tool.owner.profile.image.url}}" alt="Avatar">
+                  
                 {% endif %}
                
                 <p>{{msg.body}}</p>
@@ -63,9 +64,14 @@
            
               </div>
             {% endfor %}
-              <form> 
-                  <input type="text">
-                  <button class="btn btn-outline-success" type="submit"> Envoyer </button>
+              <form method="POST"> 
+                    {%csrf_token%}
+                    <fieldset class="form-group">
+                        {{ msg_form | crispy  }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit"> Envoyer </button>
+                    </div>
               </form>
         </div>
     </article>
