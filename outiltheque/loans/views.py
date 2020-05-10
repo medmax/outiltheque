@@ -35,8 +35,9 @@ def borrow_detail(request, pk):
                 msg.receiver = receiver
                 msg.save()
                 borrow.messages.add(msg)
+                #----- car ne doit pas etre dans une vue
                 messages.success(request, f'Votre message à été envoyée')
-            return redirect('/loans/borrow')
+                return redirect('borrow-detail', borrow.id)
     else:
         r_form = LoanRequestForm()
     
