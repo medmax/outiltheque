@@ -59,11 +59,11 @@
           </div>
           <div class="col-md-4">
             <div class="content-section">
-              <h3>Navigate</h3>
+              <h3>Toolbox</h3>
               <p class='text-muted'> 
                 <ul class="list-group">
                   <li class="list-group-item list-group-item-light">Messages</li>
-                  <li class="list-group-item list-group-item-light">Notifications</li>
+                  <li class="list-group-item list-group-item-light"><a href="{% url 'user-tools' user.username %}">Mes outils</a></li>
                   <li class="list-group-item list-group-item-light"><a href="{% url 'lend-home' %}">Mes prêts</a></li>
                   <li class="list-group-item list-group-item-light"><a href="{% url 'borrow-home' %}"> Mes emprunts</a></li>
                 </ul>
