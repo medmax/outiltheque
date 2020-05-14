@@ -28,13 +28,19 @@ def borrow_detail(request, pk):
             msg_form = MessageForm(request.POST)
             if msg_form.is_valid() :
                 # ----Création du msg et ajout au pret a mettre dans le model
-                msg = msg_form.save(commit=False)
-                sender = borrow.borrower
-                receiver = borrow.tool.owner
-                msg.sender = sender
-                msg.receiver = receiver
-                msg.save()
+                #msg = msg_form.save(commit=False)
+                #sender = borrow.borrower
+                #receiver = borrow.tool.owner
+                #msg.sender = sender
+                #msg.receiver = receiver
+                #msg.save()
+                #borrow.messages.add(msg)
+
+
+                msg = Message.create(borrow.borrower,borrow.tool.owner, msg_form.cleaned_data['body'])
                 borrow.messages.add(msg)
+
+
                 #----- car ne doit pas etre dans une vue
                 messages.success(request, f'Votre message à été envoyée')
                 return redirect('borrow-detail', borrow.id)
@@ -100,6 +106,17 @@ def borrow_returned(request,pk):
     messages.success(request, f'tu as confirmé que tu as rendu l\'outil à son proprietaire, le proprietaire doit confirmer pour terminer la location')
     return redirect('/loans/borrow')
 
+
+#on mixe une class based view que l'on surcharge pour gerer le formulaire de message pour le loan
 class LoanDetailView(DetailView):
     model = Loan
+
+    #pour ajouter des éléments au context de la vue
+    def get_context_data (self, **kwargs):
+        context = super(LoanDetailView, self).get_context_data(**kwargs)
+        msg_form = MessageForm()
+        context['msg_form'] = msg_form
+
+        return context
+
 

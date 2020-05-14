@@ -9,3 +9,9 @@ class Message(models.Model):
     receiver = models.ForeignKey(User, null=True, related_name='receiver', on_delete=models.SET_NULL)
     body = models.TextField()
     date_published = models.DateTimeField(default=timezone.now)
+
+
+    def create (sender, receiver, body):
+        msg = Message(sender = sender, receiver = receiver, body = body)
+        msg.save()
+        return msg

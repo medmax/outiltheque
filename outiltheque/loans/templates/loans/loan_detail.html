@@ -1,5 +1,5 @@
 {%extends 'toolbox/base.html'%}
-
+{% load crispy_forms_tags %}
 {%block content%}
 
     <h2>Recapitulatif de sa demande</h2>
@@ -71,10 +71,15 @@
            
               </div>
             {% endfor %}
-              <form> 
-                  <input type="text">
-                  <button class="btn btn-outline-success" type="submit"> Envoyer </button>
-              </form>
+            <form method="POST"> 
+                {%csrf_token%}
+                <fieldset class="form-group">
+                    {{ msg_form | crispy  }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit"> Envoyer </button>
+                </div>
+          </form>
         </div>
     </article>
 {%endblock content%}
