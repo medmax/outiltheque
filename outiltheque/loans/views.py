@@ -4,11 +4,7 @@ from discussion.models import Message
 from users.models import User
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (ListView,
-    DetailView,
-    UpdateView,
-    DeleteView
-)
+from django.views.generic import (ListView,DetailView,UpdateView,DeleteView)
 
 from django.contrib.auth.decorators import login_required
 from .forms import LoanRequestForm
@@ -28,11 +24,8 @@ def borrow_detail(request, pk):
     if (request.method == "POST"):
             msg_form = MessageForm(request.POST)
             if msg_form.is_valid() :
-                # ----Création du msg et ajout au pret a mettre dans le model
-                msg = Message.create(borrow.borrower,borrow.tool.owner, msg_form.cleaned_data['body'])
+                msg = Message.objects.create(sender = borrow.borrower, receiver = borrow.tool.owner, body = msg_form.cleaned_data['body'])
                 borrow.messages.add(msg)
-
-                #----- car ne doit pas etre dans une vue
                 messages.success(request, f'Votre message à été envoyée')
                 return redirect('borrow-detail', borrow.id)
     else:
@@ -98,12 +91,11 @@ def borrow_returned(request,pk):
     return redirect('/loans/borrow')
 
 
-#on mixe une class based view que l'on surcharge pour gerer le formulaire de message pour le loan
 class LoanDetailView( DetailView):
     model = Loan
     template_name = 'loans/loan_detail.html'
     form_class = MessageForm
-    #pour ajouter des éléments au context de la vue
+
     def get_context_data (self, **kwargs):
         context = super(LoanDetailView, self).get_context_data(**kwargs)
         msg_form = MessageForm()
@@ -115,7 +107,7 @@ class LoanDetailView( DetailView):
         msg_form = MessageForm(request.POST)
         if msg_form.is_valid():
             loan = self.get_object()
-            msg = Message.create(loan.tool.owner, loan.borrower, msg_form.cleaned_data['body'])
+            msg = Message.objects.create(sender = loan.tool.owner, receiver = loan.borrower, body = msg_form.cleaned_data['body'])
             loan.messages.add(msg)
             messages.success(request, f'Votre message à été envoyée')
             return redirect('loan-detail', loan.id)

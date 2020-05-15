@@ -7,6 +7,12 @@ from django.contrib import messages
 # Create your models here.
 
 class Loan (models.Model):
+    NEW = 'New'
+    ACCEPTED = 'Accepted'
+    REJECTED = 'Rejected'
+    INPROGRESS = 'InProgress'
+    TOOLRETURNED = 'ToolReturned'
+    COMPLETED = 'Completed'
 
     request_message = models.TextField()
     borrower = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,28 +22,28 @@ class Loan (models.Model):
     date_end = models.DateField(default=timezone.now)
     messages = models.ManyToManyField(Message)
     STATUS = [
-    ('New', 'demandé'),
-    ('Accepted', 'accepté'),
-    ('Rejected', 'refusé'),
-    ('InProgress', 'prêt en cours'),
-    ('ToolReturned', 'outil rendu'),
-    ('Completed', 'terminé'),
+    (NEW, 'demandé'),
+    (ACCEPTED, 'accepté'),
+    (REJECTED, 'refusé'),
+    (INPROGRESS, 'prêt en cours'),
+    (TOOLRETURNED, 'outil rendu'),
+    (COMPLETED, 'terminé'),
     ]
-    status = models.CharField(max_length=100, choices=STATUS, default='New')
+    status = models.CharField(max_length=100, choices=STATUS, default=NEW)
 
     def accept(self):
-        self.status = 'Accepted'
+        self.status = self.ACCEPTED
         self.save()
 
     def retrieve(self):
-        self.status = 'InProgress'
+        self.status = self.INPROGRESS
         self.save()
     
     def return_back(self):
-        self.status = 'ToolReturned'
+        self.status = self.TOOLRETURNED
         self.save()
     
     def complete(self):
-        self.status = 'Completed'
+        self.status = self.COMPLETED
         self.save()
 
