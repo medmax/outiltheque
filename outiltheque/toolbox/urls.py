@@ -10,4 +10,5 @@ urlpatterns = [
     path('tool/<int:pk>/update/', ToolUpdateView.as_view(), name='tool-update'),
     path('tool/<int:pk>/delete/', ToolDeleteView.as_view(), name='tool-delete'),
     path('user/<str:username>', UserToolListView.as_view(), name='user-tools'),
+    
 ] 

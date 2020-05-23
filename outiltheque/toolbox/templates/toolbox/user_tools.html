@@ -10,7 +10,7 @@
             <img class="rounded-circle article-img" src="{{tool.owner.profile.image.url}}">
             <div class="madia-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="{%url 'user-tools' tool.owner.username %}"> {{tool.owner}} </a>
+                    <a class="mr-2" href="{%url 'user-profile' tool.owner.id %}"> {{tool.owner}} </a>
                     <small class="text-muted">{{ tool.date_published|date:"d F Y" }}</small>
                 </div>
                 <h2><a class="article-title" href="{% url 'tool-detail' tool.id %}"> {{tool.title}} </a> </h2>

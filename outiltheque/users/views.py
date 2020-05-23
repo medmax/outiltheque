@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-
+from .models import User, Profile
 
 
 def register(request):
@@ -40,3 +40,14 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile.html',context)
+
+
+def user_profile(request, pk):
+    profile = User.objects.get(pk = pk).profile
+    score = profile.get_score()
+    context = {
+        'score' : score,
+        'profile' : profile,
+
+    }
+    return render(request, 'users/user_profile.html',context)

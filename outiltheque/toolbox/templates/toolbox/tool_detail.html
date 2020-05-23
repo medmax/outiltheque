@@ -7,7 +7,7 @@
             <img class="rounded-circle article-img" src="{{object.owner.profile.image.url}}">
             <div class="madia-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="{% url 'user-tools' object.owner.username %}"> {{object.owner}} </a>
+                    <a class="mr-2" href="{% url 'user-profile' object.owner.id%}"> {{object.owner}} </a>
                     {% if object.owner == user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tool-update' object.id %}">Update</a>

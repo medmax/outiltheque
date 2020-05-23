@@ -1,0 +1,10 @@
+{%extends 'toolbox/base.html'%}
+{%block content%}
+<div class="content-section">
+    le profil de l'utilisateur {{profile.user.username}} 
+    <br>
+    sa note : {{score}} 
+    <br>
+    <a class="mr-2" href="{%url 'user-tools' profile.user.username%}"> ses outils </a>
+</div>
+{%endblock content%}

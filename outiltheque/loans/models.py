@@ -47,3 +47,18 @@ class Loan (models.Model):
         self.status = self.COMPLETED
         self.save()
 
+class UserLoanScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_published = models.DateTimeField(default=timezone.now)
+    loan = models.ForeignKey(Loan, on_delete=models.CASCADE)
+    comment = models.TextField()
+    class Score (models.IntegerChoices):
+        ONE = 1
+        TWO = 2
+        THREE = 3
+        FOUR = 4
+        FIVE = 5
+    
+    score = models.IntegerField(choices=Score.choices)
+
+

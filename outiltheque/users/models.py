@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
+from loans.models import UserLoanScore
 from PIL import Image
 
 class Profile(models.Model):
@@ -18,3 +20,8 @@ class Profile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)        
+
+    def get_score(self):
+            score = UserLoanScore.objects.filter(user__username = self.user.username).aggregate(Avg('score')).get('score__avg')
+            if (score):
+                return round(score, 1)
