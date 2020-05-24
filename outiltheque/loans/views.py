@@ -70,7 +70,26 @@ def loan_complete(request, pk):
     loan = Loan.objects.get(pk = pk)
     loan.complete()
     messages.success(request, f'Le pret est finalisé merci à toi')
-    return redirect('/loans/')
+    # return redirect('/loans/')
+    return redirect('loan-score', loan.borrower.id ,loan.id)
+
+@login_required
+def loan_score(request,user_id,loan_id):
+    if (request.method == "POST"):
+        score_form = UserLoanScoreForm(request.POST)
+        score_request = score_form.save(commit=False)
+        user_to_score = User.objects.get(id=user_id)
+        loan_to_score = Loan.objects.get(id=loan_id)
+        score_request.user = user_to_score
+        score_request.loan = loan_to_score
+        score_request.save()
+        messages.success(request, f'Merci pour ton message, a tres vite pour de nouvelles locations')
+        return redirect('/loans/')
+    else:
+        score_form = UserLoanScoreForm()
+    context = {'score_form': score_form}
+    return render(request, 'loans/loan_score_form.html', context)
+
 
 @login_required
 def borrow_retrieve(request,pk):
@@ -78,8 +97,6 @@ def borrow_retrieve(request,pk):
     borrow.retrieve()
     messages.success(request, f'tu as confirmé que tu as recupéré l\'outil')
     return redirect('/loans/borrow')
-
-
     
 @login_required
 def borrow_returned(request,pk):

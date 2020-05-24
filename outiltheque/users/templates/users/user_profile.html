@@ -3,8 +3,6 @@
 <div class="content-section">
     pseudo : {{profile.user.username}} 
     <br>
-    id : {{profile.user.id}}
-    <br>
     note : {{score}} 
     <br>
     Nombre de prets : {{nb_loans}} 
@@ -13,5 +11,8 @@
 </div>
 <div class="content-section">
     <a class="mr-2" href="{%url 'user-tools' profile.user.username%}"> ses outils </a>
+</div>
+<div class="content-section">
+    Ses commentaires :
 </div>
 {%endblock content%}

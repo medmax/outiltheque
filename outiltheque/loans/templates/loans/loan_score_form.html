@@ -1,0 +1,14 @@
+{%extends 'toolbox/base.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+<div class="content-section">
+    Avant de finir, note et comment le locataire
+    <form method="POST">
+        {%csrf_token%}
+        {{ score_form | crispy  }}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit"> Noter </button>
+        </div>
+    </form>
+</div>
+{%endblock content%}
