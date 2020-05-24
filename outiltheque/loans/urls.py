@@ -1,5 +1,5 @@
 from django.urls import path
-from .import views
+from . import views
 from .views import  LoanDetailView
 urlpatterns = [
     path('', views.lend_home, name='lend-home'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('borrow/<int:pk>/', views.borrow_detail, name='borrow-detail'),
     path('borrow/<int:pk>/retrieve', views.borrow_retrieve, name='borrow-retrieve'),
     path('borrow/<int:pk>/returned', views.borrow_returned, name='borrow-returned'),
+    path('borrow/score/<int:user_id>/<int:loan_id>/', views.borrow_score, name='borrow-score')
   
 ] 

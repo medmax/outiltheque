@@ -1,10 +1,17 @@
 {%extends 'toolbox/base.html'%}
 {%block content%}
 <div class="content-section">
-    le profil de l'utilisateur {{profile.user.username}} 
+    pseudo : {{profile.user.username}} 
     <br>
-    sa note : {{score}} 
+    id : {{profile.user.id}}
     <br>
+    note : {{score}} 
+    <br>
+    Nombre de prets : {{nb_loans}} 
+    <br>
+    Nombre d'emprunts: {{nb_borrow}} 
+</div>
+<div class="content-section">
     <a class="mr-2" href="{%url 'user-tools' profile.user.username%}"> ses outils </a>
 </div>
 {%endblock content%}

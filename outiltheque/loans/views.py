@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (ListView,DetailView,UpdateView,DeleteView)
 
 from django.contrib.auth.decorators import login_required
-from .forms import LoanRequestForm
+from .forms import LoanRequestForm, UserLoanScoreForm
 from discussion.forms import MessageForm
 # Create your views here.
 
@@ -55,11 +55,7 @@ def loans_requestCreation(request, tool_id):
           return redirect('/loans/borrow')
     else:
         r_form = LoanRequestForm()
-    
     context = {'tool' : tool, 'r_form' : r_form}
-   
-  
-   
     return render(request, 'loans/loan_form.html', context)
 
 @login_required
@@ -83,13 +79,33 @@ def borrow_retrieve(request,pk):
     messages.success(request, f'tu as confirmé que tu as recupéré l\'outil')
     return redirect('/loans/borrow')
 
+
+    
 @login_required
 def borrow_returned(request,pk):
     borrow = Loan.objects.get(pk = pk)
     borrow.return_back()
     messages.success(request, f'tu as confirmé que tu as rendu l\'outil à son proprietaire, le proprietaire doit confirmer pour terminer la location')
-    return redirect('/loans/borrow')
+    # return redirect('/loans/borrow')
 
+    return redirect('borrow-score', borrow.tool.owner.id ,borrow.id)
+
+@login_required
+def borrow_score(request,user_id,loan_id):
+    if (request.method == "POST"):
+        score_form = UserLoanScoreForm(request.POST)
+        score_request = score_form.save(commit=False)
+        user_to_score = User.objects.get(id=user_id)
+        loan_to_score = Loan.objects.get(id=loan_id)
+        score_request.user = user_to_score
+        score_request.loan = loan_to_score
+        score_request.save()
+        messages.success(request, f'Merci pour ton message, le proprietaire doit confirmer pour terminer la location')
+        return redirect('/loans/borrow')
+    else:
+        score_form = UserLoanScoreForm()
+    context = {'score_form': score_form}
+    return render(request, 'loans/borrow_score_form.html', context)
 
 class LoanDetailView( DetailView):
     model = Loan

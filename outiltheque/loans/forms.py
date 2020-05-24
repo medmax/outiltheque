@@ -1,5 +1,5 @@
 from django import forms
-from .models import Loan, Tool, User
+from .models import Loan, Tool, User, UserLoanScore
 from datetime import datetime
 from django.db import models
 
@@ -26,3 +26,7 @@ class LoanRequestForm(forms.ModelForm):
             raise forms.ValidationError (
                 "la date de fin du pret ne peut pas etre inférieur à la date de début"
             )
+class UserLoanScoreForm(forms.ModelForm):
+    class Meta:
+        model = UserLoanScore
+        fields = ['score', 'comment']
