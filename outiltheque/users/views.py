@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from .models import User, Profile
-from loans.models import Loan
+from loans.models import Loan, UserLoanScore
 
 
 def register(request):
@@ -48,11 +48,12 @@ def user_profile(request, pk):
     score = profile.get_score()
     nb_loans = Loan.objects.filter(tool__owner = profile.user).count()
     nb_borrow = Loan.objects.filter(borrower = profile.user).count()
+    evaluations = UserLoanScore.objects.filter(user = profile.user)
     context = {
         'score' : score,
         'profile' : profile,
         'nb_loans' : nb_loans,
         'nb_borrow' : nb_borrow,
-
+        'evaluations' : evaluations,
     }
     return render(request, 'users/user_profile.html',context)

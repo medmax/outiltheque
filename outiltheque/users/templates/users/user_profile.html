@@ -1,18 +1,45 @@
 {%extends 'toolbox/base.html'%}
 {%block content%}
+
+<h2>Profile</h2>
 <div class="content-section">
-    pseudo : {{profile.user.username}} 
+    <h2> {{profile.user.username}} </h2>
+    ({{score}}/5)
     <br>
-    note : {{score}} 
+    <img class="rounded-circle article-img" src="{{profile.image.url}}"> 
     <br>
     Nombre de prets : {{nb_loans}} 
     <br>
     Nombre d'emprunts: {{nb_borrow}} 
+    <br>
 </div>
+
+
+<h2>Evaluations</h2>
+<div class="content-section">
+    {%for evaluation in evaluations%}
+
+    <article class="media content-section">
+        {% if evaluation.user.id == evaluation.loan.borrower.id %}
+            <img class="rounded-circle article-img" src="{{evaluation.loan.tool.owner.profile.image.url}}" alt="Avatar" class="right">
+           
+        {% endif %}
+        {% if evaluation.user.id == evaluation.loan.tool.owner.id %}
+            <img class="rounded-circle article-img" src="{{evaluation.loan.borrower.profile.image.url}}" alt="Avatar" class="right">
+        {% endif %}
+    
+        <div class="madia-body">
+            <div class="article-metadata">
+                <small class="text-muted">{{ evaluation.date_published|date:"d F Y" }}</small>
+            </div>
+            <small class="text-muted"> ({{ evaluation.score }} / 5)</small>
+            <p class="article-content"> {{ evaluation.comment }} </p>
+        </div>
+    </article>
+    {%endfor%}
+</div>
+{%endblock content%}
+
 <div class="content-section">
     <a class="mr-2" href="{%url 'user-tools' profile.user.username%}"> ses outils </a>
 </div>
-<div class="content-section">
-    Ses commentaires :
-</div>
-{%endblock content%}
